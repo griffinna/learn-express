@@ -62,19 +62,19 @@ app.get('/', (req, res, next) => {
 });
 
 app.get('/upload', (req, res) => {
-    res.sendFile(path.join(__dirname, 'multipart.html'));
+    res.sendFile(path.join(__dirname, 'multer', 'multipart.html'));
 });
 
 app.get('/multi/upload', (req, res) => {
-    res.sendFile(path.join(__dirname, 'multipart_multi.html'));
+    res.sendFile(path.join(__dirname, 'multer', 'multipart_multi.html'));
 });
 
 app.get('/multi/key/upload', (req, res) => {
-    res.sendFile(path.join(__dirname, 'multipart_multi_key.html'));
+    res.sendFile(path.join(__dirname,'multer', 'multipart_multi_key.html'));
 });
 
 app.get('/none/upload', (req, res) => {
-    res.sendFile(path.join(__dirname, 'multipart_none.html'));
+    res.sendFile(path.join(__dirname,'multer', 'multipart_none.html'));
 });
 
 
