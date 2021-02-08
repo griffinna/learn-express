@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 
 // express 내부에 http 모듈이 내장되어 있어 서버의 역할을 할 수 있다.
 const app = express();
@@ -8,7 +9,8 @@ app.set('port', process.env.PORT || 3000);
 // app.get(주소, 라우터): 주소에 대한 GET 요청이 올 때 어떤 동작을 할지 설정
 app.get('/', (req, res) => {
     // res.write, res.end 대신 res.send 사용
-    res.send('Hello, Express!');
+    // res.send('Hello, Express!');
+    res.sendFile(path.join(__dirname, '/index.html'));
 });
 
 app.listen(app.get('port'), () => {
