@@ -14,6 +14,10 @@ try {
     fs.mkdirSync('uploads');
 }
 dotnev.config();
+
+const indexRouter = require('./routes');        // index.js 는 생략가능
+const userRouter = require('./routes/user');
+
 // express 내부에 http 모듈이 내장되어 있어 서버의 역할을 할 수 있다.
 const app = express();
 // 서버가 실행 될 포트를 설정 (속성이 없다면 3000 포트를 사용)
@@ -34,6 +38,9 @@ app.use(session({
     },
     name: 'session-cookie',
 }));
+
+app.use('/', indexRouter);     // GET / 라우터
+app.use('/user', userRouter);   // GET /user 라우터
 
 const upload = multer({
     storage: multer.diskStorage({
@@ -56,7 +63,7 @@ app.use((req, res, next) => {
 
 app.get('/', (req, res, next) => {
     console.log('GET / 요청에서만 실행됩니다.');
-    next();
+    next('route');  // 라우터에 연결된 나머지 미들웨어들을 건너ㄸ뛰고 싶을 때 사용
 }, (req, res) => {
     throw new Error('에러는 에러 처리 미들웨어로 갑니다.');
 });
