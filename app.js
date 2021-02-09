@@ -6,6 +6,7 @@ const dotnev = require('dotenv');       // .env 파일을 읽어서 process.env 
 const path = require('path');
 const multer = require('multer');
 const fs = require('fs');
+const nunjucks = require('nunjucks');
 
 try {
     fs.readdirSync('uploads');
@@ -25,8 +26,12 @@ const app = express();
 app.set('port', process.env.PORT || 3000);
 
 // 템플릿 엔진을 연결
-app.set('views', path.join(__dirname, 'views'));    // app.set('views', 폴더위치): 템플릿 파일들이 위치한 폴더를 지정
-app.set('view engine', 'pug');                      // app.set('view engine', 템플릿엔진): 사용할 템플릿 엔진 지정
+//app.set('views', path.join(__dirname, 'views'));    // app.set('views', 폴더위치): 템플릿 파일들이 위치한 폴더를 지정 (퍼그 설정)
+app.set('view engine', 'nunjucks');                      // app.set('view engine', 템플릿엔진): 사용할 템플릿 엔진 지정
+nunjucks.configure('views', {
+    express: app,   // express 속성에 app 객체를 연결
+    watch: true,    // watch: true > HTML파일이 변경될 떄 템플릿 엔진을 다시 렌더링
+});
 
 app.use(morgan('dev'));
 app.use('/', express.static(path.join(__dirname, 'public')));
