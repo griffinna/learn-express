@@ -17,6 +17,7 @@ dotnev.config();
 
 const indexRouter = require('./routes');        // index.js 는 생략가능
 const userRouter = require('./routes/user');
+const router = require('./routes');
 
 // express 내부에 http 모듈이 내장되어 있어 서버의 역할을 할 수 있다.
 const app = express();
@@ -39,8 +40,24 @@ app.use(session({
     name: 'session-cookie',
 }));
 
+// 라우터 설정하기
 app.use('/', indexRouter);     // GET / 라우터
 app.use('/user', userRouter);   // GET /user 라우터
+
+// 404 응답 미들웨어와 에러 처리 미들웨어를 연결
+// 아래 처리가 없으면 처리하지 못하는 요청시 "Cannot GET /abc" 표시됨
+app.use((req, res, next) => {
+    res.status(404).send('Not Found');
+});
+
+// 주소는 같지만 메서드가 다른 라우터 하나로 묶기
+router.route('/abc')
+    .get((req, res) => {
+        res.send('GET /abc');
+    })
+    .post((req, res) => {
+        res.send('POST /abc');
+    });
 
 const upload = multer({
     storage: multer.diskStorage({
