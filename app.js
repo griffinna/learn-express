@@ -56,7 +56,17 @@ app.use('/user', userRouter);   // GET /user 라우터
 // 404 응답 미들웨어와 에러 처리 미들웨어를 연결
 // 아래 처리가 없으면 처리하지 못하는 요청시 "Cannot GET /abc" 표시됨
 app.use((req, res, next) => {
-    res.status(404).send('Not Found');
+    // res.status(404).send('Not Found');
+    const error = new Error(`${req.method} ${req.url} 라우터가 없습니다.`);
+    error.status = 404;
+    next(error);
+});
+// 에러처리 미들웨어
+app.use((err, req, res, next) => {
+    res.locals.message = err.message;
+    res.locals.error = process.env.NODE_ENV !== 'production' ? err : {};
+    res.status(err.status || 500);
+    res.render('error');    // error 템플릿파일(error.html) 을 렌더링함 (res.locals 값도 함께 렌더링)
 });
 
 // 주소는 같지만 메서드가 다른 라우터 하나로 묶기
