@@ -130,6 +130,8 @@ include 와도 함께 사용하기도 함
 ```
 - body.html (nunjucks)
 ```html
+{% extends 'layout.html' %}
+
 {% block content %}
 <main>
     <p>내용입니다.</p>
