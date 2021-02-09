@@ -24,6 +24,10 @@ const app = express();
 // 서버가 실행 될 포트를 설정 (속성이 없다면 3000 포트를 사용)
 app.set('port', process.env.PORT || 3000);
 
+// 템플릿 엔진을 연결
+app.set('views', path.join(__dirname, 'views'));    // app.set('views', 폴더위치): 템플릿 파일들이 위치한 폴더를 지정
+app.set('view engine', 'pug');                      // app.set('view engine', 템플릿엔진): 사용할 템플릿 엔진 지정
+
 app.use(morgan('dev'));
 app.use('/', express.static(path.join(__dirname, 'public')));
 app.use(express.json());
