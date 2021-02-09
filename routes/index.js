@@ -15,7 +15,8 @@ router.get('/', function (req, res, next) {
 
 router.get('/', (req, res) => {
     console.log('실행됩니다.');
-    res.send('Helloooo Expresssss!')
+    // res.send('Helloooo Expresssss!')
+    res.render('index', {title: 'Express'});
 })
 
 module.exports = router;
