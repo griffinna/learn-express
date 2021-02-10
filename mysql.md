@@ -35,6 +35,7 @@ Database changed
 ```
 ## 테이블 생성
 ```sql
+# users
 CREATE TABLE nodejs.users (
 	id INT NOT NULL AUTO_INCREMENT,
     name VARCHAR(20) NOT NULL,
@@ -45,12 +46,30 @@ CREATE TABLE nodejs.users (
     PRIMARY KEY(id),
     UNIQUE INDEX name_UNIQUE (name ASC))
     COMMENT = '사용자 정보'
-    DEFAULT CHARACTER SET = utf8
-    ;
+    DEFAULT CHARACTER SET = utf8;
+
+# comment
+create table nodejs.comments (
+    id int not null auto_increment,
+    commenter int not null,
+    comment varchar(100) not null,
+    create_at datetime not null default now(),
+    primary key(id),
+    index commenter_idx (commenter ASC),
+    constraint commenter            # constraint [제약조건명]
+    foreign key (commenter)         # foreign key [컬럼명]
+    references nodejs.users (id)    # references [참고하는 컬럼명]
+    on delete cascade           # 사용자 정보가 삭제되면 연결 댓글 정보도 삭제
+    on update cascade)          # 사용자 정보가 수정되면 연결 댓글 정보도 수정
+    comment = '댓글'
+    default charset = utf8mb4
+    engine=InnoDB;
 ```
 ## 테이블 확인
+```sql
+DESC users;
+```
 ``` console
-mysql> desc nodejs.users;
 +-----------+--------------+------+-----+-------------------+-------------------+
 | Field     | Type         | Null | Key | Default           | Extra             |
 +-----------+--------------+------+-----+-------------------+-------------------+
@@ -61,7 +80,23 @@ mysql> desc nodejs.users;
 | comment   | text         | YES  |     | NULL              |                   |
 | create_at | datetime     | NO   |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED |
 +-----------+--------------+------+-----+-------------------+-------------------+
-6 rows in set (0.00 sec)
+```
+
+```sql
+SHOW TABLES;
+```
+``` console
++------------------+
+| Tables_in_nodejs |
++------------------+
+| comments         |
+| users            |
++------------------+
+```
+
+## 테이블 삭제
+```sql
+DROP TABLE users;
 ```
 
 ## 자료형
