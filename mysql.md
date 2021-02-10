@@ -48,6 +48,21 @@ CREATE TABLE nodejs.users (
     DEFAULT CHARACTER SET = utf8
     ;
 ```
+## 테이블 확인
+``` console
+mysql> desc nodejs.users;
++-----------+--------------+------+-----+-------------------+-------------------+
+| Field     | Type         | Null | Key | Default           | Extra             |
++-----------+--------------+------+-----+-------------------+-------------------+
+| id        | int          | NO   | PRI | NULL              | auto_increment    |
+| name      | varchar(20)  | NO   | UNI | NULL              |                   |
+| age       | int unsigned | NO   |     | NULL              |                   |
+| married   | tinyint      | NO   |     | NULL              |                   |
+| comment   | text         | YES  |     | NULL              |                   |
+| create_at | datetime     | NO   |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED |
++-----------+--------------+------+-----+-------------------+-------------------+
+6 rows in set (0.00 sec)
+```
 
 ## 자료형
 - INT: 정수  
