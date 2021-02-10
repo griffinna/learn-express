@@ -48,3 +48,31 @@ CREATE TABLE nodejs.users (
     DEFAULT CHARACTER SET = utf8
     ;
 ```
+
+## 자료형
+- INT: 정수  
+소수까지 저장하려면 FLOAT, DOUBEL 자료형 사용
+- VARCHAR(자릿수): 가변 길이 문자열
+- CHAR(자릿수): 고정 길이 문자열 (자릿수보다 짧은 문자열을 넣으면 부족한 자릿수만큼 스페이스 채워짐)
+- TEXT: 긴 글을 저장할 때 사용 (수백자 이내: VARCHAR 사용)
+- TINYINT: -128 ~ 127 까지의 정수를 저장할 때 사용  
+(1 또는 0 만 저장한다면 boolean 과 같은 역할)
+- DATETIME: 날짜와 시간에 대한 정보
+- DATE: 날짜 정보
+- TIME: 시간정보
+
+## 컬럼 옵션
+- NULL / NOT NULL: 빈칸을 허용할지 여부 
+- AUTO_INCREMENT: 숫자 자동 증가
+- UNSIGNED: (숫자 자료형에 적용) 음수는 무시되고 양수만 저장  
+*FLOAT, DOUBLE 에는 UN적용이 불가*
+- ZEROFILL: 숫자의 자릿수가 고정되어 있을 때 사용 (비어있는 자리에 모두 0을 넣음)  
+EX) INT(4) 컬럼에 1 을 넣으면 0001 이 됨
+- DEFAULT: 저장 시 해당 컬럼에 값이 없다면 기본값을 넣음
+- PRIMARY KEY: 해당 컬럼이 기본 키인 경우 설정
+- UNIQUE INDEX: 해당 값이 고유해야 하는지에 대한 옵션
+
+## 테이블 설정 옵션
+- COMMENT: 테이블에 대한 보충 설명 (필수X)
+- DEFAULT CHARACTER SET: utf8 로 설정하지 않으면 한글 입력 불가
+- ENGINE: MyISAM 과 InnoDB 가 제일 많이 사용됨
